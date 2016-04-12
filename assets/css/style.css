@@ -1,0 +1,342 @@
+/* RESET */
+a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,var,video{margin:0;padding:0;border:0;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1;text-size-adjust:100%;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:after,blockquote:before,q:after,q:before{content:'';content:none}table{border-collapse:collapse;border-spacing:0}article,aside,div,footer,header,nav,section{box-sizing:border-box}button,input,select,textarea{padding:0;margin:0;width:auto;height:auto;box-sizing:border-box;background:0 0;border:none;border-radius:0;color:inherit;font-family:inherit;font-size:inherit;font-style:inherit;line-height:inherit;outline:0;appearance:none;-webkit-margin-before:0;-webkit-margin-end:0;-webkit-margin-after:0;-webkit-margin-start:0;-webkit-padding-before:0;-webkit-padding-end:0;-webkit-padding-after:0;-webkit-padding-start:0}a{color:inherit;outline:0}strong{font-weight:700}
+
+/*
+ * General settings
+ */
+
+@font-face {
+  font-family: 'Bariol';
+  src: url('./../fonts/Bariol/Bariol-Regular.ttf');
+}
+
+body {
+  font-size: 93.75%;
+  font-family: 'Bariol';
+  background-color: rgb(244, 244, 244);
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+hr {
+  margin-bottom: 2rem;
+  height: 1px;
+  background: #E2E2E2;
+  border: 0;
+  font-size: 0;
+  color: #E2E2E2;
+}
+
+input {
+  font-family: 'Bariol';
+}
+
+
+
+/*
+ * Theme
+ */
+
+body.bg-blue {
+  background-color: rgb(32, 134, 206);
+}
+
+
+
+/*
+ * <.header /> component
+ */
+
+.header {
+  padding: 3rem 0;
+  background-color: rgb(32, 134, 206);
+  text-align: center;
+}
+
+.header-wrapper {
+  width: 1000px;
+  margin: auto;
+}
+
+.header-user {
+  position: absolute;
+  top: 1rem; right: 1rem;
+}
+
+.header-logout,
+.header-username {
+  color: rgba(255, 255, 255, .5);
+  font-size: .9rem;
+  text-decoration: none;
+}
+
+.header-username {
+  color: rgb(255, 255, 255);
+  margin-right: 1rem;
+ }
+
+.header-logout:hover {
+  text-decoration: underline;
+  color: rgb(255, 255, 255);
+}
+
+.header-title {
+  margin-top: 4rem;
+  margin-bottom: 1rem;
+  color: white;
+  text-shadow: 0 1px 0 rgba(16, 80, 105, 0.5);
+}
+
+.header-button {
+  display: inline-block;
+  padding: .9rem 1rem;
+  margin-top: 1rem;
+  background-color: white;
+  border-radius: .4rem;
+  color: rgb(32, 134, 206);
+  text-decoration: none;
+}
+
+.header-button:hover {
+  background-color: rgba(255, 255, 255, .75);
+}
+
+.header-button.--back {
+  background-color: rgba(26, 84, 125, 1);
+  color: white;
+  font-size: 13px;
+  padding: .78rem .8rem;
+  margin-bottom: -4rem;
+}
+
+.header-button.--back:hover {
+  background-color: rgba(26, 84, 125, .75);
+  color: white;
+}
+
+
+
+/*
+ * <.main /> component
+ */
+
+.main {
+  width: 1000px;
+  margin: auto;
+}
+
+
+
+/*
+ * <.login|.subscire /> component
+ */
+
+.subscribe,
+.login {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  width: 250px;
+}
+
+.subscribe-error,
+.login-error {
+  padding: .9rem 0 1rem;
+  margin-left: 2.5%;
+  margin-bottom: 1rem;
+  width: 95%;
+  background: #DC6E6E;
+  border-radius: .25rem;
+  text-align: center;
+  color: white;
+}
+
+.subscribe-title,
+.login-title {
+  margin-bottom: 1.5rem;
+  font-size: 1.75rem;
+  color: white;
+  text-shadow: 0 1px 0 rgba(16, 80, 105, 0.5);
+  text-align: center;
+}
+
+.subscribe-fieldset,
+.login-fieldset {
+  position: relative;
+  padding: .25rem;
+  background-color: rgba(255, 255, 255, .25);
+  border-radius: .5rem;
+}
+
+.subscribe-input,
+.login-input {
+  padding: .75rem 1rem .9rem;
+  width: 100%;
+  background-color: white;
+  border-radius: .4rem;
+}
+
+.subscribe-input.--error,
+.login-input.--error {
+  position: relative;
+  margin-top: .4rem;
+  border: 2px solid #DC6E6E;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.subscribe-input-labelError,
+.login-input-labelError {
+  position: relative;
+  margin-bottom: .4rem;
+  padding: .4rem 0 .5rem;
+  background: #DC6E6E;
+  border-bottom-left-radius: .2rem;
+  border-bottom-right-radius: .2rem;
+  font-size: .9rem;
+  color: rgb(255, 255, 255);
+  text-align: center;
+}
+
+.subscribe-input + .subscribe-input,
+.login-input + .login-input {
+  margin-top: .25rem;
+}
+
+.subscribe-submit,
+.login-submit {
+  display: block;
+  padding: .9rem 1rem;
+  margin-top: 1rem;
+  width: 100%;
+  background-color: rgba(26, 84, 125, .75);
+  border-radius: .4rem;
+  color: white;
+  cursor: pointer;
+}
+
+.subscribe-submit:hover,
+.login-submit:hover,
+.subscribe-submit:focus,
+.login-submit:focus {
+  background-color: rgba(26, 84, 125, 1);
+}
+
+.subscribe-login,
+.login-subscribe {
+  display: block;
+  margin-top: 1rem;
+  color: rgba(255, 255, 255, .5);
+  text-align: center;
+}
+
+.subscribe-login:hover,
+.login-subscribe:hover {
+  color: rgb(255, 255, 255);
+}
+
+
+
+/*
+ * <.expenses /> component
+ */
+
+.expenses-notfound {
+  margin-top: 2rem;
+  text-align: center;
+  font-size: 1rem;
+  color: grey;
+}
+
+.expenses-form {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.expenses-input {
+  margin-bottom: 2rem;
+  padding: .9rem 1.25rem;
+  width: 23rem;
+  border-radius: .4rem;
+  background-color: #eee;
+  border: 1px solid #E2E2E2;
+  font-size: 1.1rem;
+  text-align: left;
+}
+
+.expenses-input:hover,
+.expenses-input:focus {
+  border: 1px solid #c2c2c2;
+}
+
+.expenses-submit {
+  margin: 2rem 0;
+  padding: .9rem 1.25rem .95rem;
+  width: 23rem;
+  border-radius: .4rem;
+  background-color: rgb(32, 134, 206);
+  color: white;
+  font-size: 1.1rem;
+  text-align: center;
+  cursor: pointer;
+}
+
+.expenses-submit:hover,
+.expenses-submit:focus {
+  background-color: rgba(32, 134, 206, .75);
+}
+
+.expenses-label {
+  display: inline-block;
+  position: relative;
+  width: 10rem;
+  margin: .25rem 2rem 0 1rem;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 700;
+  text-align: right;
+}
+
+.expenses-item {
+  padding: 2rem 0;
+  width: 50%;
+  margin: 0 auto;
+  border-bottom: 1px solid #dedede;
+  text-align: center;
+}
+
+.expenses-item + .expenses-item {
+  margin-top: 1.5rem;
+}
+
+.expenses-title {
+  margin-bottom: .5rem;
+  font-size: 1.25rem;
+}
+
+.expenses-action {
+  opacity: .75;
+  text-decoration: none;
+}
+
+.expenses-action + .expenses-action {
+  margin-left: .5rem;
+}
+
+.expenses-action:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+.expenses-total {
+  display: block;
+  padding-bottom: 2rem;
+  margin: 2rem 0 1rem;
+  border-bottom: 1px solid #dedede;
+  text-align: center;
+  font-size: 1.25rem;
+  font-style: italic;
+  color: grey;
+}
