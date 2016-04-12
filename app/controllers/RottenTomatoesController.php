@@ -30,25 +30,25 @@
 
       // Get stats
       $dom = HtmlDomParser::file_get_html($movie['rottentomatoes_link']);
-      $scoresDom = $dom->find('#scorePanel', 0);
-      $textSelector = '_';
+      $scores_dom = $dom->find('#scorePanel', 0);
+      $text_selector = '_';
 
       // Get tomato meter
-      $tomatoMeter = $scoresDom
+      $tomato_meter = $scores_dom
         ->find('.tomato-left', 0)
         ->find('.meter-value', 0)
         ->find('span', 0)
         ->nodes[0]
-        ->$textSelector;
-      $movie['tomato_meter'] = $tomatoMeter['4'];
+        ->$text_selector;
+      $movie['tomato_meter'] = $tomato_meter['4'];
 
       // Get audience score
-      $audienceScore = $scoresDom
+      $audience_score = $scores_dom
         ->find('.audiencepanel', 0)
         ->find('.meter-value > .superPageFontColor', 0)
         ->nodes[0]
-        ->$textSelector;
-      $movie['audience_score'] = explode('%', $audienceScore['4'])[0];
+        ->$text_selector;
+      $movie['audience_score'] = explode('%', $audience_score['4'])[0];
 
       // Return json
       echo json_encode($movie);

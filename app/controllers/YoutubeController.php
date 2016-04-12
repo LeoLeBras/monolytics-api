@@ -1,6 +1,5 @@
 <?php
 
-  require_once(APP_DIR.'/models/Movie.php');
   require_once(CORE_DIR.'/helpers/Fetch.php');
 
   class YoutubeController {
@@ -38,15 +37,15 @@
 
       // Fetch data
       foreach($response->items as $video) {
-        $videoId = $video->id->videoId;
+        $video_id = $video->id->videoId;
         $video = Fetch::get(
-          $this->url.'videos?id='.$videoId.'&key='.$this->key.'&part=snippet,contentDetails,statistics,status',
+          $this->url.'videos?id='.$video_id.'&key='.$this->key.'&part=snippet,contentDetails,statistics,status',
           $this->headers
         );
         foreach ($movie as $key => $value) {
           if($key !== 'title') {
-            $videoStatistics = $video->items[0]->statistics;
-            $movie[$key] = $movie[$key] + $videoStatistics->$key;
+            $video_statistics = $video->items[0]->statistics;
+            $movie[$key] = $movie[$key] + $video_statistics->$key;
           }
         }
       }
