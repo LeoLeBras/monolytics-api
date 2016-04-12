@@ -1,7 +1,6 @@
 <?php
 
   require_once(CORE_DIR.'/helpers/Fetch.php');
-  require_once(CORE_DIR.'/helpers/Route.php');
   require_once(APP_DIR.'/models/Movie.php');
 
   class OMDbAPIController {
@@ -25,19 +24,27 @@
     public function get($query) {
 
       // Search movie
-      $movie = Fetch::get(
+      $response = Fetch::get(
         $this->url.'search/movie?api_key='.$this->key.'&query='.$query,
         $this->headers
       )->results[0];
 
       // Get data
       $movie = array(
-        'title' => $movie->title,
-        'imdb_popularity' => $movie->popularity,
-        'imdb_vote_average' => $movie->vote_average,
-        'imdb_vote_count' => $movie->vote_count,
-        'release_date' => $movie->release_date,
+        'imdb_popularity' => $response->popularity,
+        'imdb_vote_average' => $response->vote_average,
+        'imdb_vote_count' => $response->vote_count,
+        'release_date' => $response->release_date,
       );
+
+      // Save $movie in databse
+      $query = new Movie();
+      $query
+        ->where(array(
+          'title' => $response->title
+        ))
+        ->set($movie)
+        ->save();
 
       // Show json
       echo json_encode($movie);
