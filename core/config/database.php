@@ -1,7 +1,7 @@
 <?php
 
   define('DB_HOST', 'localhost');
-  define('DB_NAME', 'LEBRAS_Leo_expenses');
+  define('DB_NAME', 'monolytics');
   define('DB_USER', 'root');
   define('DB_PASS', 'root');
 
