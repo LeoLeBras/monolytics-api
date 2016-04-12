@@ -5,13 +5,11 @@
     // Home
     '/' => 'LandingController\index',
 
-    // Auth
-    '/subscribe' => 'AuthController\subscribe',
-    '/login' => 'AuthController\login',
-    '/logout' => 'AuthController\logout',
-
     // Errors
     '/notfound' => 'errorController\notfound',
+
+    // Get movies
+    '/movies' => 'MoviesController\all',
 
     // Youtube
     '/youtube/:movie' => 'YoutubeController\get',
