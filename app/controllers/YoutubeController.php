@@ -1,6 +1,7 @@
 <?php
 
   require_once(CORE_DIR.'/helpers/Fetch.php');
+  require_once(APP_DIR.'/models/Movie.php');
 
   class YoutubeController {
 
@@ -21,8 +22,8 @@
     public function get($query) {
 
       // Initialize movie data
+      $title = ucwords(strtolower($query));
       $movie = array(
-        'title' => ucwords(strtolower($query)),
         'viewCount' => 0,
         'likeCount' => 0,
         'dislikeCount' => 0,
@@ -43,12 +44,31 @@
           $this->headers
         );
         foreach ($movie as $key => $value) {
-          if($key !== 'title') {
-            $video_statistics = $video->items[0]->statistics;
-            $movie[$key] = $movie[$key] + $video_statistics->$key;
-          }
+          $video_statistics = $video->items[0]->statistics;
+          $movie[$key] = $movie[$key] + $video_statistics->$key;
         }
       }
+
+      // Clear structure
+      $structure = array(
+        'viewCount' => 'youtube_view_count',
+        'likeCount' => 'youtube_like_count',
+        'dislikeCount' => 'youtube_dislike_count',
+        'commentCount' => 'youtube_comment_count'
+      );
+      foreach ($structure as $key => $value) {
+        $movie[$structure[$key]] = $movie[$key];
+        unset($movie[$key]);
+      }
+
+      // Save $movie in databse
+      $query = new Movie();
+      $query
+        ->where(array(
+          'title' => $title
+        ))
+        ->set($movie)
+        ->save();
 
       // Return json
       echo json_encode($movie);
