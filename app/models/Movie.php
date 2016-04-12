@@ -2,6 +2,6 @@
 
   require_once(CORE_DIR.'/helpers/Model.php');
 
-  class Expense extends Model {
+  class Movie extends Model {
     public $table = 'movies';
   }

@@ -1,6 +1,5 @@
 <?php
 
-  require_once(CORE_DIR.'/helpers/Auth.php');
   require_once(VENDOR_DIR.'/autoload.php');
 
   class View {
@@ -20,9 +19,6 @@
 
       // Pass global vars
       $data['URL'] = URL;
-
-      // Pass user data
-      $data['is_logged'] = Auth::isLogged();
 
       // Render view
       echo $twig->render($template.'.twig.php', $data);

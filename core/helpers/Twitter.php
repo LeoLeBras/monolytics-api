@@ -24,7 +24,7 @@
 
       // Initialyze request
       $api = new TwitterAPIExchange(self::$tokens);
-      $query = '?q='. $query .'%23nowwatching&count=100&since_id=0&result_type=recent';
+      $query = '?q='.$query.'%23nowwatching&count=100&since_id=0&result_type=recent';
 
       // Get tweets
       $data = $api
