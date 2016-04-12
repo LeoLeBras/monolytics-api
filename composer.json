@@ -1,6 +1,7 @@
 {
     "require": {
         "mashape/unirest-php": "^3.0",
-        "sunra/php-simple-html-dom-parser": "v1.5.0"
+        "sunra/php-simple-html-dom-parser": "v1.5.0",
+        "j7mbo/twitter-api-php": "dev-master"
     }
 }
