@@ -1,6 +1,7 @@
 <?php
 
-  require_once(CORE_DIR.'/helpers/Fetch.php');
+  require_once(VENDOR_DIR.'/autoload.php');
+  require_once(APP_DIR.'/models/Movie.php');
   use Sunra\PhpSimple\HtmlDomParser;
 
   class RottenTomatoesController {
@@ -18,7 +19,7 @@
 
       // Initialyze $movie
       $movie = array();
-      $movie['title'] = ucwords(strtolower($query));
+      $title = ucwords(strtolower($query));
       $query = join('+', explode(' ', $query));
 
       // Get link
@@ -26,10 +27,10 @@
       $link = $dom
         ->find('#movie_results_ul > .articleLink', 0)
         ->attr['href'];
-      $movie['rottentomatoes_link'] = $this->url.$link;
+      $movie['rotten_tomatoes_link'] = $this->url.$link;
 
       // Get stats
-      $dom = HtmlDomParser::file_get_html($movie['rottentomatoes_link']);
+      $dom = HtmlDomParser::file_get_html($movie['rotten_tomatoes_link']);
       $scores_dom = $dom->find('#scorePanel', 0);
       $text_selector = '_';
 
@@ -40,7 +41,7 @@
         ->find('span', 0)
         ->nodes[0]
         ->$text_selector;
-      $movie['tomato_meter'] = $tomato_meter['4'];
+      $movie['rotten_tomatoes_meter'] = $tomato_meter['4'];
 
       // Get audience score
       $audience_score = $scores_dom
@@ -48,7 +49,16 @@
         ->find('.meter-value > .superPageFontColor', 0)
         ->nodes[0]
         ->$text_selector;
-      $movie['audience_score'] = explode('%', $audience_score['4'])[0];
+      $movie['rotten_tomatoes_score'] = explode('%', $audience_score['4'])[0];
+
+      // Save $movie in databse
+      $query = new Movie();
+      $query
+        ->where(array(
+          'title' => $title
+        ))
+        ->set($movie)
+        ->save();
 
       // Return json
       echo json_encode($movie);
