@@ -24,6 +24,12 @@
     '/list' => 'TraktController\list',
 
     // MovieDB
-    '/omdbapi/:movie' => 'OMDbAPIController\get'
+    '/omdbapi/:movie' => 'OMDbAPIController\get',
+
+    // PirateBay
+    '/piratebay/:movie' => 'PirateBayController\get',
+
+    // Twitter
+    '/twitter/:movie' => 'TwitterController\get'
 
   );
