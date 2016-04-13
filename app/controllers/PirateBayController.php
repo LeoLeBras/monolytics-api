@@ -65,7 +65,7 @@
     public function get($query, $year, $return_json = true) {
 
       // Get data
-      $title = join('+', explode(' ', $query));
+      $title = join('+', explode('-', join('+', explode(' ', $query))));
       $dom = @HtmlDomParser::file_get_html($this->url.'/s/?q='.$title.'+'.$year.'&page=0&orderby=99');
       if($dom) {
         $tbody = $dom->find('#searchResult', 0);

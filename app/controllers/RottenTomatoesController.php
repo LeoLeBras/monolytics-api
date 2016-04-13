@@ -65,7 +65,7 @@
     public function get($query, $link = null, $return_json = true) {
 
       $title = ucwords(strtolower($query));
-      $query = join('+', explode(' ', $query));
+      $query = join('+', explode('-', join('+', explode(' ', $query))));
 
       // Get link from search resultats
       if(empty($link)) {
