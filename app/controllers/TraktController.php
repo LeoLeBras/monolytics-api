@@ -89,7 +89,8 @@
           $query
             ->set(array(
               'title' => $title,
-              'imdb_id' => $movie['imdb_id']
+              'imdb_id' => $movie['imdb_id'],
+              'year' => $movie['year']
             ))
             ->save();
           $movie['movie_id'] = $query->lastInsertId();
@@ -119,14 +120,59 @@
 
 
     /**
+     * Fetch trakt metadatas
+     *
+     * @param {string} $query
+     */
+    public function index($query) {
+      if($query == 'crawl') {
+        $this->runCrawler();
+      }
+      else {
+        $this->get($query);
+      }
+    }
+
+
+
+    /**
+     * Crawl trakt metadatas
+     *
+     * @param {string} $query
+     * @return {array}
+     */
+    public function runCrawler() {
+
+      // Get movies from databse
+      $query = new Movie();
+      $movies = $query
+        ->limit(5)
+        ->orderBY('trakt_last_update', 'ASC')
+        ->fetchAll();
+
+      // Fetch tweets
+      $response = [];
+      foreach($movies as $key => $movie) {
+        $response[$key] = $this->get(htmlentities(strtolower($movie->title)).' '.$movie->year, false);
+      }
+
+      // Show response
+      echo json_encode($response);
+
+    }
+
+
+
+    /**
      * Get stats informations
      * from a movie
      * > http://docs.trakt.apiary.io/#reference/movies/stats/get-movie-stats
      *
      * @param {string} $query
+     * @param {boolean} $return_json
      * @param {array}
      */
-    public function getMovie($query) {
+    public function getMovie($query, $return_json) {
 
       // Get imdb id
       $title = ucwords(strtolower($query));
@@ -151,7 +197,8 @@
         'trakt_collectors' => $response->collectors,
         'trakt_comments' => $response->comments,
         'trakt_lists' => $response->lists,
-        'trakt_votes' => $response->votes
+        'trakt_votes' => $response->votes,
+        'trakt_last_update' => date("Y-m-d H:i:s")
       );
 
       // Save data in databse
@@ -165,7 +212,9 @@
 
 
       // Show json response
-      echo json_encode($movie);
+      if($return_json) {
+        echo json_encode($movie);
+      }
 
       // Return data
       return $query;
