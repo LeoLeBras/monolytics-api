@@ -44,7 +44,7 @@
       // Fetch tweets
       $response = [];
       foreach($movies as $key => $movie) {
-        $response[$key] = $this->get(htmlentities(strtolower($movie->title)).' '.$movie->year, false);
+        $response[$key] = $this->get(htmlentities(strtolower($movie->title)), $movie->year, false);
       }
 
       // Show response
@@ -58,14 +58,15 @@
      * from PirateBay
      *
      * @param {string} $query
+     * @param {string} $year
      * @param {boolean} $return_json
      * @return {array}
      */
-    public function get($query, $return_json = true) {
+    public function get($query, $year, $return_json = true) {
 
       // Get data
       $title = join('+', explode(' ', $query));
-      $dom = HtmlDomParser::file_get_html($this->url.'/s/?q='.$title.'&page=0&orderby=99');
+      $dom = HtmlDomParser::file_get_html($this->url.'/s/?q='.$title.'+'.$year.'&page=0&orderby=99');
       $tbody = $dom->find('#searchResult', 0);
       $text_selector = '_';
       $nodeIndex = 0;
