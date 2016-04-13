@@ -2,3 +2,4 @@ vendor/
 .DS_Store
 core/config/database.php
 core/config/tokens.php
+core/config/path.php
