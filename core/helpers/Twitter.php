@@ -53,9 +53,9 @@
 
       // Build response
       $response = array(
-        'total_count' => count($tweets),
-        'count_from_last_3_days' => $count_tweets_from_last_3_days,
-        'tweets' => $tweets
+        'twitter_count_popular_tweets' => count($tweets),
+        'twitter_count_popular_tweets_from_last_3_years' => $count_tweets_from_last_3_days,
+        'twitter_tweets' => $tweets
       );
 
       // Return data
