@@ -6,6 +6,42 @@
   class TwitterController {
 
     /**
+     * Fetch tweets
+     *
+     * @param {string} $query
+     */
+    public function index($query) {
+      if($query == 'crawl') {
+        $this->runCrawler();
+      }
+      else {
+        $this->get($query);
+      }
+    }
+
+
+
+    /**
+     * Crawl tweets for some websites
+     *
+     * @param {string} $query
+     * @return {array}
+     */
+    public function runCrawler() {
+      $query = new Movie();
+      $movies = $query
+        ->limit(10)
+        ->orderBY('twitter_last_updated', 'ASC')
+        ->fetchAll();
+
+      foreach($movies as $movie) {
+        $this->get(htmlentities(strtolower($movie->title)));
+      }
+    }
+
+
+
+    /**
      * Get all tweets from a movie
      *
      * @param {string} $query
@@ -24,6 +60,7 @@
           'title' => $title
         ))
         ->set(array(
+          'twitter_last_updated' => date("Y-m-d H:i:s"),
           'twitter_count_popular_tweets' => $response['twitter_count_popular_tweets'],
           'twitter_count_popular_tweets_from_last_3_days' => $response['twitter_count_popular_tweets_from_last_3_days']
         ))

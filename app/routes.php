@@ -18,7 +18,7 @@
     '/streaming/:movie' => 'TraktController\getMovie',
     '/omdbapi/:movie' => 'OMDbAPIController\get',
     '/piratebay/:movie' => 'PirateBayController\get',
-    '/twitter/:movie' => 'TwitterController\get'
+    '/twitter/:query' => 'TwitterController\index'
 
 
   );
