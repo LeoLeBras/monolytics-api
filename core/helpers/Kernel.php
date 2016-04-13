@@ -54,4 +54,23 @@
 
     }
 
+
+
+    /**
+     * Register class to load
+     */
+    static function register(){
+      spl_autoload_register(array(__CLASS__, 'autoload'));
+    }
+
+
+
+    /**
+     * Autload class
+     */
+    static function autoload($class) {
+      $loader = explode('\\', $class);
+      require_once(CORE_DIR.'/helpers/'.$loader[1].'.php');
+    }
+
   }
