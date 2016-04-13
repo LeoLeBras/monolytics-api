@@ -73,14 +73,16 @@
         $nodeIndex = 0;
         $seeders = 0;
         $leechers = 0;
-        foreach($tbody->find('tr') as $tr) {
-          if($nodeIndex !== 0 && $nodeIndex < 6) {
-            $torrent_seeders = $tr->find('td', 2)->nodes[0]->$text_selector;
-            $torrent_leechers = $tr->find('td', 3)->nodes[0]->$text_selector;
-            $seeders += $torrent_seeders[4];
-            $leechers += $torrent_leechers[4];
+        if($tbody !== null) {
+          foreach($tbody->find('tr') as $tr) {
+            if($nodeIndex !== 0 && $nodeIndex < 6) {
+              $torrent_seeders = $tr->find('td', 2)->nodes[0]->$text_selector;
+              $torrent_leechers = $tr->find('td', 3)->nodes[0]->$text_selector;
+              $seeders += $torrent_seeders[4];
+              $leechers += $torrent_leechers[4];
+            }
+            $nodeIndex += 1;
           }
-          $nodeIndex += 1;
         }
       }
 

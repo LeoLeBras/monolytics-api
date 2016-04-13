@@ -98,13 +98,16 @@
         $text_selector = '_';
 
         // Get tomato meter
-        $tomato_meter = $scores_dom
+        $dom_first = $scores_dom
           ->find('.tomato-left', 0)
-          ->find('.meter-value', 0)
-          ->find('span', 0)
-          ->nodes[0]
-          ->$text_selector;
-        $movie['rotten_tomatoes_meter'] = $tomato_meter['4'];
+          ->find('.meter-value', 0);
+        if($dom_first !== null) {
+          $dom_second = $dom_first
+            ->find('span', 0)
+            ->nodes[0]
+            ->$text_selector;
+          $movie['rotten_tomatoes_meter'] = $dom_second['4'];
+        }
 
         // Get audience score
         $audience_score = $scores_dom
