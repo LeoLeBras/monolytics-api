@@ -30,21 +30,29 @@
 
 
     /**
-     * Crawl tweets for some websites
+     * Crawl youtube metadatas
      *
      * @param {string} $query
      * @return {array}
      */
     public function runCrawler() {
+
+      // Get movies from databse
       $query = new Movie();
       $movies = $query
-        ->limit(10)
+        ->limit(5)
         ->orderBY('youtube_last_updated', 'ASC')
         ->fetchAll();
 
+      // Fetch tweets
+      $response = [];
       foreach($movies as $movie) {
-        $this->get(htmlentities(strtolower($movie->title)).' '.$movie->year);
+        $this->get(htmlentities(strtolower($movie->title)).' '.$movie->year, false);
       }
+
+      // Show response
+      echo json_encode($response);
+
     }
 
 
@@ -54,8 +62,10 @@
      * > https://developers.google.com/youtube/v3/docs/search/list#parameters
      *
      * @param {string} $name
+     * @param {boolean} $return_json
+     * @return {array}
      */
-    public function get($query) {
+    public function get($query, $return_json) {
 
       // Get video list results
       $response = Fetch::get(
@@ -99,6 +109,7 @@
 
       // Add youtube video id
       $movie['youtube_id'] = $response->items[0]->id->videoId;
+      $movie['youtube_last_updated'] = date("Y-m-d H:i:s");
 
       // Save $movie in databse
       $query = new Movie();
@@ -110,7 +121,12 @@
         ->save();
 
       // Return json
-      echo json_encode($movie);
+      if($return_json) {
+        echo json_encode($movie);
+      }
+
+      // Return data
+      return $movies;
 
     }
 

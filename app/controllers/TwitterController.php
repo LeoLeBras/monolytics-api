@@ -22,21 +22,29 @@
 
 
     /**
-     * Crawl tweets for some websites
+     * Crawl tweets
      *
      * @param {string} $query
      * @return {array}
      */
     public function runCrawler() {
+
+      // Get movies from databse
       $query = new Movie();
       $movies = $query
-        ->limit(10)
+        ->limit(5)
         ->orderBY('twitter_last_updated', 'ASC')
         ->fetchAll();
 
-      foreach($movies as $movie) {
-        $this->get(htmlentities(strtolower($movie->title)));
+      // Fetch tweets
+      $response = [];
+      foreach($movies as $key => $movie) {
+        $response[$key] = $this->get(htmlentities(strtolower($movie->title)), false);
       }
+
+      // Show response
+      echo json_encode($response);
+
     }
 
 
@@ -45,9 +53,10 @@
      * Get all tweets from a movie
      *
      * @param {string} $query
+     * @param {boolean} $return_json
      * @return {array}
      */
-    public function get($query) {
+    public function get($query, $return_json) {
 
       // Get data
       $response = Twitter::get($query);
@@ -67,7 +76,9 @@
         ->save();
 
       // Show json
-      echo json_encode($response);
+      if($return_json) {
+        echo json_encode($response);
+      }
 
       // Return data
       return $response;
