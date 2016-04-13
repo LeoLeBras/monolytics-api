@@ -66,20 +66,22 @@
 
       // Get data
       $title = join('+', explode(' ', $query));
-      $dom = HtmlDomParser::file_get_html($this->url.'/s/?q='.$title.'+'.$year.'&page=0&orderby=99');
-      $tbody = $dom->find('#searchResult', 0);
-      $text_selector = '_';
-      $nodeIndex = 0;
-      $seeders = 0;
-      $leechers = 0;
-      foreach($tbody->find('tr') as $tr) {
-        if($nodeIndex !== 0 && $nodeIndex < 6) {
-          $torrent_seeders = $tr->find('td', 2)->nodes[0]->$text_selector;
-          $torrent_leechers = $tr->find('td', 3)->nodes[0]->$text_selector;
-          $seeders += $torrent_seeders[4];
-          $leechers += $torrent_leechers[4];
+      $dom = @HtmlDomParser::file_get_html($this->url.'/s/?q='.$title.'+'.$year.'&page=0&orderby=99');
+      if($dom) {
+        $tbody = $dom->find('#searchResult', 0);
+        $text_selector = '_';
+        $nodeIndex = 0;
+        $seeders = 0;
+        $leechers = 0;
+        foreach($tbody->find('tr') as $tr) {
+          if($nodeIndex !== 0 && $nodeIndex < 6) {
+            $torrent_seeders = $tr->find('td', 2)->nodes[0]->$text_selector;
+            $torrent_leechers = $tr->find('td', 3)->nodes[0]->$text_selector;
+            $seeders += $torrent_seeders[4];
+            $leechers += $torrent_leechers[4];
+          }
+          $nodeIndex += 1;
         }
-        $nodeIndex += 1;
       }
 
       // Build response

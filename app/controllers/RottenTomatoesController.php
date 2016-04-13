@@ -69,15 +69,17 @@
 
       // Get link from search resultats
       if(empty($link)) {
-        $dom = HtmlDomParser::file_get_html('http://www.rottentomatoes.com/search/?search='.$query);
-        $link = $dom->find('#movie_results_ul > .articleLink', 0);
+        $dom = @HtmlDomParser::file_get_html('http://www.rottentomatoes.com/search/?search='.$query);
+        if($dom) {
+          $link = $dom->find('#movie_results_ul > .articleLink', 0);
 
-        // Set if results exist
-        if(!isset($link)) {
-          $link = $this->url.'/'.'m/'.join('_', explode('+', $query)).'/';
-        }
-        else {
-          $link = $this->url.$link->attr['href'];
+          // Set if results exist
+          if(!isset($link)) {
+            $link = $this->url.'/'.'m/'.join('_', explode('+', $query)).'/';
+          }
+          else {
+            $link = $this->url.$link->attr['href'];
+          }
         }
       }
 
@@ -90,26 +92,28 @@
       );
 
       // Get stats
-      $dom = HtmlDomParser::file_get_html($movie['rotten_tomatoes_link']);
-      $scores_dom = $dom->find('#scorePanel', 0);
-      $text_selector = '_';
+      $dom = @HtmlDomParser::file_get_html($movie['rotten_tomatoes_link']);
+      if($dom) {
+        $scores_dom = $dom->find('#scorePanel', 0);
+        $text_selector = '_';
 
-      // Get tomato meter
-      $tomato_meter = $scores_dom
-        ->find('.tomato-left', 0)
-        ->find('.meter-value', 0)
-        ->find('span', 0)
-        ->nodes[0]
-        ->$text_selector;
-      $movie['rotten_tomatoes_meter'] = $tomato_meter['4'];
+        // Get tomato meter
+        $tomato_meter = $scores_dom
+          ->find('.tomato-left', 0)
+          ->find('.meter-value', 0)
+          ->find('span', 0)
+          ->nodes[0]
+          ->$text_selector;
+        $movie['rotten_tomatoes_meter'] = $tomato_meter['4'];
 
-      // Get audience score
-      $audience_score = $scores_dom
-        ->find('.audiencepanel', 0)
-        ->find('.meter-value > .superPageFontColor', 0)
-        ->nodes[0]
-        ->$text_selector;
-      $movie['rotten_tomatoes_score'] = explode('%', $audience_score['4'])[0];
+        // Get audience score
+        $audience_score = $scores_dom
+          ->find('.audiencepanel', 0)
+          ->find('.meter-value > .superPageFontColor', 0)
+          ->nodes[0]
+          ->$text_selector;
+        $movie['rotten_tomatoes_score'] = explode('%', $audience_score['4'])[0];
+      }
 
       // Save $movie in databse
       $query = new Movie();
