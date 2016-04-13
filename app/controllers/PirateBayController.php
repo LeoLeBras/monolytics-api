@@ -9,14 +9,59 @@
     public $url = 'https://ukpirate.org';
 
 
+
+    /**
+     * Fetch piratebay metadatas
+     *
+     * @param {string} $query
+     */
+    public function index($query) {
+      if($query == 'crawl') {
+        $this->runCrawler();
+      }
+      else {
+        $this->get($query);
+      }
+    }
+
+
+
+    /**
+     * Crawl piratebay metadatas
+     *
+     * @param {string} $query
+     * @return {array}
+     */
+    public function runCrawler() {
+
+      // Get movies from databse
+      $query = new Movie();
+      $movies = $query
+        ->limit(5)
+        ->orderBY('pirate_bay_last_update', 'ASC')
+        ->fetchAll();
+
+      // Fetch tweets
+      $response = [];
+      foreach($movies as $key => $movie) {
+        $response[$key] = $this->get(htmlentities(strtolower($movie->title)).' '.$movie->year, false);
+      }
+
+      // Show response
+      echo json_encode($response);
+
+    }
+
+
     /**
      * Get some seeders and letchers
      * from PirateBay
      *
      * @param {string} $query
+     * @param {boolean} $return_json
      * @return {array}
      */
-    public function get($query) {
+    public function get($query, $return_json = true) {
 
       // Get data
       $title = join('+', explode(' ', $query));
@@ -52,7 +97,9 @@
         ->save();
 
       // Show response
-      echo json_encode($movie);
+      if($return_json) {
+        echo json_encode($movie);
+      }
 
       // Return data
       return $movie;
