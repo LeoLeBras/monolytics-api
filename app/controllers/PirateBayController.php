@@ -83,8 +83,8 @@
 
       // Build response
       $movie = array(
-        'pirate_bay_seeders' => $seeders,
-        'pirate_bay_leechers' => $leechers
+        'pirate_bay_seeders' => (int)$seeders,
+        'pirate_bay_leechers' => (int)$leechers
       );
 
       // Save $movie in databse

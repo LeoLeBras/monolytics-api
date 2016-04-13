@@ -103,7 +103,7 @@
         'commentCount' => 'youtube_comment_count',
       );
       foreach ($structure as $key => $value) {
-        $movie[$structure[$key]] = $movie[$key];
+        $movie[$structure[$key]] = (int)$movie[$key];
         unset($movie[$key]);
       }
 

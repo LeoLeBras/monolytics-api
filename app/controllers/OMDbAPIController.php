@@ -77,11 +77,11 @@
       // Get data
       $movie = array(
         'title' => $response->Title,
-        'imdb_rating' => $response->imdbRating,
-        'imdb_votes' => $response->imdbVotes,
+        'imdb_rating' => (float)$response->imdbRating,
+        'imdb_votes' => (float)$response->imdbVotes,
         'imdb_id' => $response->imdbID,
         'director' =>  $response->Director,
-        'metascore' =>  $response->Metascore,
+        'metascore' => (int)$response->Metascore,
         'imdb_last_update' => date("Y-m-d H:i:s")
       );
 

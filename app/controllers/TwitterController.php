@@ -69,9 +69,9 @@
           'title' => $title
         ))
         ->set(array(
-          'twitter_last_update' => date("Y-m-d H:i:s"),
-          'twitter_count_popular_tweets' => $response['twitter_count_popular_tweets'],
-          'twitter_count_popular_tweets_from_last_3_days' => $response['twitter_count_popular_tweets_from_last_3_days']
+          'twitter_last_update' => (int)date("Y-m-d H:i:s"),
+          'twitter_count_popular_tweets' => (int)$response['twitter_count_popular_tweets'],
+          'twitter_count_popular_tweets_from_last_3_days' => (int)$response['twitter_count_popular_tweets_from_last_3_days']
         ))
         ->save();
 

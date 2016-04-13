@@ -192,12 +192,12 @@
 
       // Build data
       $movie = array(
-        'trakt_watchers' => $response->watchers,
-        'trakt_plays' => $response->plays,
-        'trakt_collectors' => $response->collectors,
-        'trakt_comments' => $response->comments,
-        'trakt_lists' => $response->lists,
-        'trakt_votes' => $response->votes,
+        'trakt_watchers' => (int)$response->watchers,
+        'trakt_plays' => (int)$response->plays,
+        'trakt_collectors' => (int)$response->collectors,
+        'trakt_comments' => (int)$response->comments,
+        'trakt_lists' => (int)$response->lists,
+        'trakt_votes' => (int)$response->votes,
         'trakt_last_update' => date("Y-m-d H:i:s")
       );
 
