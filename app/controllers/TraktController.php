@@ -25,9 +25,11 @@
      * @param {string} $type
      * @return {array}
      */
-    public function get($type) {
+    public function list($type) {
       if(in_array($type, $this->types)) {
         return Fetch::get($this->url.$type, $this->headers);
+      }
+      else if($type == 'all') {
       }
       else {
         return null;
@@ -39,7 +41,7 @@
     /**
      * Get all top movies
      */
-    public function list() {
+    public function all() {
 
       // Get all movies
       $movies = array();
@@ -57,7 +59,64 @@
         }
       }
 
+      // Show json
       echo json_encode($movies);
+
+    }
+
+
+
+    /**
+     * Get stats informations
+     * from a movie
+     * > http://docs.trakt.apiary.io/#reference/movies/stats/get-movie-stats
+     *
+     * @param {string} $query
+     * @param {array}
+     */
+    public function get($query) {
+
+      // Get imdb id
+      $title = ucwords(strtolower($query));
+      $query = new Movie();
+      $imdb_id = $query
+        ->where(array(
+          'title' => $title
+        ))
+        ->fetch()
+        ->imdb_id;
+
+      // Get streaming stats from movie
+      $response = Fetch::get(
+        $this->url.$imdb_id.'/stats',
+        $this->headers
+      );
+
+      // Build data
+      $movie = array(
+        'trakt_watchers' => $response->watchers,
+        'trakt_plays' => $response->plays,
+        'trakt_collectors' => $response->collectors,
+        'trakt_comments' => $response->comments,
+        'trakt_lists' => $response->lists,
+        'trakt_votes' => $response->votes
+      );
+
+      // Save data in databse
+      $query = new Movie();
+      $query
+        ->where(array(
+          'title' => $title
+        ))
+        ->set($movie)
+        ->save();
+
+
+      // Show json response
+      echo json_encode($movie);
+
+      // Return data
+      return $query;
 
     }
 
