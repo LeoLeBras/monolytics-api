@@ -25,7 +25,7 @@
      * @param {string} $type
      * @return {array}
      */
-    public function list($type) {
+    public function top($type) {
       if(in_array($type, $this->types)) {
         return Fetch::get($this->url.$type, $this->headers);
       }
@@ -44,7 +44,7 @@
       // Get all movies
       $movies = array();
       foreach($this->types as $type) {
-        foreach($this->list($type) as $entry) {
+        foreach($this->top($type) as $entry) {
           if(isset($entry->movie)) {
             $entry = $entry->movie;
           }

@@ -18,7 +18,7 @@
     '/rottentomatoes/:movie' => 'RottenTomatoesController\get',
 
     // List of movies
-    '/trakt/:type' => 'TraktController\list',
+    '/trakt/:type' => 'TraktController\top',
     '/streaming/:movie' => 'TraktController\get',
     '/tops' => 'TraktController\tops',
 
