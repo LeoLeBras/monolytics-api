@@ -153,7 +153,7 @@
       // Fetch tweets
       $response = [];
       foreach($movies as $key => $movie) {
-        $response[$key] = $this->getMovie(htmlentities(strtolower($movie->title)).' '.$movie->year, false);
+        $response[$key] = $this->getMovie(htmlentities(strtolower($movie->imdb_id)), false);
       }
 
       // Show response
@@ -168,21 +168,11 @@
      * from a movie
      * > http://docs.trakt.apiary.io/#reference/movies/stats/get-movie-stats
      *
-     * @param {string} $query
+     * @param {string} $imdb_id
      * @param {boolean} $return_json
      * @param {array}
      */
-    public function getMovie($query, $return_json = true) {
-
-      // Get imdb id
-      $title = ucwords(strtolower($query));
-      $query = new Movie();
-      $imdb_id = $query
-        ->where(array(
-          'title' => $title
-        ))
-        ->fetch()
-        ->imdb_id;
+    public function getMovie($imdb_id, $return_json = true) {
 
       // Get streaming stats from movie
       $response = Fetch::get(
@@ -205,11 +195,10 @@
       $query = new Movie();
       $query
         ->where(array(
-          'title' => $title
+          'imdb_id' => $imdb_id
         ))
         ->set($movie)
         ->save();
-
 
       // Show json response
       if($return_json) {
@@ -217,7 +206,7 @@
       }
 
       // Return data
-      return $query;
+      return $movie;
 
     }
 
