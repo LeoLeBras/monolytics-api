@@ -153,7 +153,7 @@
       // Fetch tweets
       $response = [];
       foreach($movies as $key => $movie) {
-        $response[$key] = $this->get(htmlentities(strtolower($movie->title)).' '.$movie->year, false);
+        $response[$key] = $this->getMovie(htmlentities(strtolower($movie->title)).' '.$movie->year, false);
       }
 
       // Show response
