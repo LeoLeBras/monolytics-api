@@ -14,6 +14,42 @@
 
 
     /**
+     * Fetch youtube metadatas
+     *
+     * @param {string} $query
+     */
+    public function index($query) {
+      if($query == 'crawl') {
+        $this->runCrawler();
+      }
+      else {
+        $this->get($query);
+      }
+    }
+
+
+
+    /**
+     * Crawl tweets for some websites
+     *
+     * @param {string} $query
+     * @return {array}
+     */
+    public function runCrawler() {
+      $query = new Movie();
+      $movies = $query
+        ->limit(10)
+        ->orderBY('youtube_last_updated', 'ASC')
+        ->fetchAll();
+
+      foreach($movies as $movie) {
+        $this->get(htmlentities(strtolower($movie->title)).' '.$movie->year);
+      }
+    }
+
+
+
+    /**
      * Get Youtube data
      * > https://developers.google.com/youtube/v3/docs/search/list#parameters
      *

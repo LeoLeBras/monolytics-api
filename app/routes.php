@@ -13,7 +13,7 @@
 
     // APIs
     '/trakt' => 'TraktController\getTops',
-    '/youtube/:movie' => 'YoutubeController\get',
+    '/youtube/:movie' => 'YoutubeController\index',
     '/rottentomatoes/:movie' => 'RottenTomatoesController\get',
     '/streaming/:movie' => 'TraktController\getMovie',
     '/omdbapi/:movie' => 'OMDbAPIController\get',
