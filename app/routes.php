@@ -14,7 +14,7 @@
     // APIs
     '/trakt' => 'TraktController\getTops',
     '/youtube/:movie' => 'YoutubeController\index',
-    '/rottentomatoes/:movie' => 'RottenTomatoesController\get',
+    '/rottentomatoes/:movie' => 'RottenTomatoesController\index',
     '/streaming/:movie' => 'TraktController\index',
     '/omdb/:movie' => 'OMDbAPIController\index',
     '/piratebay/:movie' => 'PirateBayController\index',
