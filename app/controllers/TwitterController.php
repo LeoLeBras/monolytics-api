@@ -15,7 +15,7 @@
     public function get($query) {
 
       // Get data
-      $response = Twitter::getMovie($query);
+      $response = Twitter::get($query);
       $title = ucwords(strtolower($query));
 
       // Save $movie in databse

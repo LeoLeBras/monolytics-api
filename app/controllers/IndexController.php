@@ -1,11 +1,11 @@
 <?php
 
-  class ErrorController {
-    public function notfound() {
+  class IndexController {
+    public function index() {
       $response = array(
         'app' => 'monolytics',
         'version' => '0.1',
-        'status' => 'error'
+        'status' => 'success'
       );
       echo json_encode($response);
     }

@@ -20,7 +20,7 @@
      * @param {string} $movie
      * @return {array}
      */
-    static public function getMovie($query) {
+    static public function get($query) {
 
       // Initialyze request
       $api = new TwitterAPIExchange(self::$tokens);
