@@ -47,7 +47,7 @@
       // Fetch tweets
       $response = [];
       foreach($movies as $key => $movie) {
-        $response[$key] = $this->get(htmlentities(strtolower($movie->title)).' '.$movie->year, false);
+        $response[$key] = $this->get(htmlentities(strtolower($movie->title)), $movie->year, false);
       }
 
       // Show response
@@ -62,6 +62,7 @@
      * > https://developers.google.com/youtube/v3/docs/search/list#parameters
      *
      * @param {string} $name
+     * @param {string} $year
      * @param {boolean} $return_json
      * @return {array}
      */
@@ -69,7 +70,7 @@
 
       // Get video list results
       $response = Fetch::get(
-        $this->url.'search?part=snippe&part=snippet&order=relevance&q='.$query.'+trailer&maxResults=3&type=video&key='.$this->key,
+        $this->url.'search?part=snippe&part=snippet&order=relevance&q='.$query.'+'.$year.'+trailer&maxResults=3&type=video&key='.$this->key,
         $this->headers
       );
 
