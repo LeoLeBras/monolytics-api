@@ -6,10 +6,10 @@
 
     public static $url = 'https://api.twitter.com/1.1/';
     public static $tokens = array(
-      'oauth_access_token' => "1269600193-xMWhn1kM0m45fqP8VuS7FByZXf0XR2e2Kz4i6Va",
-      'oauth_access_token_secret' => "NhEDOGYu6CWy11YPjIpRxxjq73rly0qv45q2ZxOKMWtxr",
-      'consumer_key' => "0pAPqNUuns3MjyMFfw95rwUIG",
-      'consumer_secret' => "QQqfK7atn0V7UwHENtsfIg5X6kfdRPXjK8GWCB6Uh5enlMaMmU"
+      'oauth_access_token' => TWITTER_OAUTH_TOKENS,
+      'oauth_access_token_secret' => TWITTER_OAUTH_TOKENS_SECRET,
+      'consumer_key' => TWITTER_KEY,
+      'consumer_secret' => TWITTER_SECRET
     );
 
 
@@ -54,7 +54,7 @@
       // Build response
       $response = array(
         'twitter_count_popular_tweets' => count($tweets),
-        'twitter_count_popular_tweets_from_last_3_years' => $count_tweets_from_last_3_days,
+        'twitter_count_popular_tweets_from_last_3_days' => $count_tweets_from_last_3_days,
         'twitter_tweets' => $tweets
       );
 

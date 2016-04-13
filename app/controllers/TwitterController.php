@@ -26,7 +26,7 @@
         ))
         ->set(array(
           'twitter_count_popular_tweets' => $response['twitter_count_popular_tweets'],
-          'twitter_count_popular_tweets_from_last_3_years' => $response['twitter_count_popular_tweets_from_last_3_years']
+          'twitter_count_popular_tweets_from_last_3_days' => $response['twitter_count_popular_tweets_from_last_3_days']
         ))
         ->save();
 

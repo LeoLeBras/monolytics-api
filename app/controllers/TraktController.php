@@ -10,7 +10,7 @@
     private $headers = array(
       'Content-Type' => 'application/json',
       'trakt-api-version' => '2',
-      'trakt-api-key' => '386bfb747aa8fa68d1689c6babb1bc58308e0f12f17462cb00db79b195fef8ee'
+      'trakt-api-key' => TRAKT_API_KEY
     );
     private $types = array('popular', 'trending', 'anticipated', 'boxoffice');
 

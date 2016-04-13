@@ -9,7 +9,7 @@
     private $headers = array(
       'Content-Type' => 'application/json'
     );
-    private $key = 'AIzaSyCKiKcBC8tC1Py4kDc-mZ7z25lAOfa9GbE';
+    private $key = YOUTUBE_API_KEY;
 
 
 
