@@ -29,8 +29,6 @@
       if(in_array($type, $this->types)) {
         return Fetch::get($this->url.$type, $this->headers);
       }
-      else if($type == 'all') {
-      }
       else {
         return null;
       }
@@ -39,14 +37,14 @@
 
 
     /**
-     * Get all top movies
+     * Get all tops
      */
-    public function all() {
+    public function tops() {
 
       // Get all movies
       $movies = array();
       foreach($this->types as $type) {
-        foreach($this->get($type) as $entry) {
+        foreach($this->list($type) as $entry) {
           if(isset($entry->movie)) {
             $entry = $entry->movie;
           }

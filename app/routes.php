@@ -20,7 +20,7 @@
     // List of movies
     '/trakt/:type' => 'TraktController\list',
     '/streaming/:movie' => 'TraktController\get',
-    '/list' => 'TraktController\all',
+    '/tops' => 'TraktController\tops',
 
     // MovieDB
     '/omdbapi/:movie' => 'OMDbAPIController\get',
