@@ -85,7 +85,8 @@
       // Build response
       $movie = array(
         'pirate_bay_seeders' => (int)$seeders,
-        'pirate_bay_leechers' => (int)$leechers
+        'pirate_bay_leechers' => (int)$leechers,
+        'pirate_bay_last_update' => date("Y-m-d H:i:s")
       );
 
       // Save $movie in databse
