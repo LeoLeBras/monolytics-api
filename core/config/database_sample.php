@@ -1,9 +1,9 @@
 <?php
 
-  define('DB_HOST', 'localhost');
-  define('DB_NAME', 'monolytics');
-  define('DB_USER', 'root');
-  define('DB_PASS', 'root');
+  define('DB_HOST', 'xx');
+  define('DB_NAME', 'xx');
+  define('DB_USER', 'xx');
+  define('DB_PASS', 'xx');
 
   try {
     $pdo = new PDO('mysql:host='.DB_HOST.';dbname='.DB_NAME,DB_USER,DB_PASS);
