@@ -172,7 +172,7 @@
      * @param {boolean} $return_json
      * @param {array}
      */
-    public function getMovie($query, $return_json) {
+    public function getMovie($query, $return_json = true) {
 
       // Get imdb id
       $title = ucwords(strtolower($query));

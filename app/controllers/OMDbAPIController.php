@@ -66,7 +66,7 @@
      * @param {boolean} $return_json
      * @return {array}
      */
-    public function get($query, $return_json) {
+    public function get($query, $return_json = true) {
 
       // Get movie
       $response = Fetch::get(
