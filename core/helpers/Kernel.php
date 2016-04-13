@@ -41,7 +41,7 @@
         !isset($controllerMethod) ||
         !@require_once APP_DIR.'/controllers/'.$controller.'.php'
       ) {
-        $controller = 'errorController';
+        $controller = 'ErrorController';
         $controllerMethod = 'notfound';
       }
 
