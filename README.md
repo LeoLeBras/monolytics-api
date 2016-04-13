@@ -4,11 +4,11 @@ The official Monolytics API :tv:
 ## Requirements
 - PHP 5.4.x or newer
 
-## APIs and bots
-- Youtube API
-- Twitter API
-- Trakt API
-- OMDb API
+## Fetch data from :
+- Youtube
+- Twitter
+- Trakt
+- OMDb
 - Rotten Tomatoes
 - PirateBay
 
