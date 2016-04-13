@@ -13,14 +13,59 @@
 
 
     /**
+     * Fetch IMDB metadatas
+     *
+     * @param {string} $query
+     */
+    public function index($query) {
+      if($query == 'crawl') {
+        $this->runCrawler();
+      }
+      else {
+        $this->get($query);
+      }
+    }
+
+
+
+    /**
+     * Crawl IMDB metadatas
+     *
+     * @param {string} $query
+     * @return {array}
+     */
+    public function runCrawler() {
+
+      // Get movies from databse
+      $query = new Movie();
+      $movies = $query
+        ->limit(5)
+        ->orderBY('imdb_last_updated', 'ASC')
+        ->fetchAll();
+
+      // Fetch tweets
+      $response = [];
+      foreach($movies as $key => $movie) {
+        $response[$key] = $this->get(htmlentities(strtolower($movie->title)), false);
+      }
+
+      // Show response
+      echo json_encode($response);
+
+    }
+
+
+
+    /**
      * Get some informations about a movie
      *
      * > http://docs.themoviedb.apiary.io/#reference/movies
      *
      * @param {string} $query
+     * @param {boolean} $return_json
      * @return {array}
      */
-    public function get($query) {
+    public function get($query, $return_json) {
 
       // Get movie
       $response = Fetch::get(
@@ -35,7 +80,8 @@
         'imdb_votes' => $response->imdbVotes,
         'imdb_id' => $response->imdbID,
         'director' =>  $response->Director,
-        'metascore' =>  $response->Metascore
+        'metascore' =>  $response->Metascore,
+        'imdb_last_updated' => date("Y-m-d H:i:s")
       );
 
       // Save $movie in databse
@@ -48,7 +94,9 @@
         ->save();
 
       // Show json
-      echo json_encode($response);
+      if($return_json) {
+        echo json_encode($response);
+      }
 
       // Return data
       return $movie;
