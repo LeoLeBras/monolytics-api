@@ -5,11 +5,10 @@
 
   class OMDbAPIController {
 
-    private $url = 'https://api.themoviedb.org/3/';
+    private $url = 'http://www.omdbapi.com/';
     private $headers = array(
       'Content-Type' => 'application/json'
     );
-    private $key = '39e198fbcb8ce7150a372180e92df284';
 
 
 
@@ -23,31 +22,33 @@
      */
     public function get($query) {
 
-      // Search movie
+      // Get movie
       $response = Fetch::get(
-        $this->url.'search/movie?api_key='.$this->key.'&query='.$query,
+        $this->url.'?t='.join('+', explode(' ', $query)),
         $this->headers
-      )->results[0];
+      );
 
       // Get data
       $movie = array(
-        'imdb_popularity' => $response->popularity,
-        'imdb_vote_average' => $response->vote_average,
-        'imdb_vote_count' => $response->vote_count,
-        'release_date' => $response->release_date,
+        'title' => $response->Title,
+        'imdb_rating' => $response->imdbRating,
+        'imdb_votes' => $response->imdbVotes,
+        'imdb_id' => $response->imdbID,
+        'director' =>  $response->Director,
+        'metascore' =>  $response->Metascore
       );
 
       // Save $movie in databse
       $query = new Movie();
       $query
         ->where(array(
-          'title' => $response->title
+          'title' => $response->Title
         ))
         ->set($movie)
         ->save();
 
       // Show json
-      echo json_encode($movie);
+      echo json_encode($response);
 
       // Return data
       return $movie;
