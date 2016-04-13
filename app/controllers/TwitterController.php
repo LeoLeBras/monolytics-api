@@ -33,7 +33,7 @@
       $query = new Movie();
       $movies = $query
         ->limit(5)
-        ->orderBY('twitter_last_updated', 'ASC')
+        ->orderBY('twitter_last_update', 'ASC')
         ->fetchAll();
 
       // Fetch tweets
@@ -69,7 +69,7 @@
           'title' => $title
         ))
         ->set(array(
-          'twitter_last_updated' => date("Y-m-d H:i:s"),
+          'twitter_last_update' => date("Y-m-d H:i:s"),
           'twitter_count_popular_tweets' => $response['twitter_count_popular_tweets'],
           'twitter_count_popular_tweets_from_last_3_days' => $response['twitter_count_popular_tweets_from_last_3_days']
         ))
