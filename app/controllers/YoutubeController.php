@@ -41,13 +41,13 @@
       $query = new Movie();
       $movies = $query
         ->limit(5)
-        ->orderBY('youtube_last_updated', 'ASC')
+        ->orderBY('youtube_last_update', 'ASC')
         ->fetchAll();
 
       // Fetch tweets
       $response = [];
-      foreach($movies as $movie) {
-        $this->get(htmlentities(strtolower($movie->title)).' '.$movie->year, false);
+      foreach($movies as $key => $movie) {
+        $response[$key] = $this->get(htmlentities(strtolower($movie->title)).' '.$movie->year, false);
       }
 
       // Show response
@@ -109,7 +109,7 @@
 
       // Add youtube video id
       $movie['youtube_id'] = $response->items[0]->id->videoId;
-      $movie['youtube_last_updated'] = date("Y-m-d H:i:s");
+      $movie['youtube_last_update'] = date("Y-m-d H:i:s");
 
       // Save $movie in databse
       $query = new Movie();
@@ -126,7 +126,7 @@
       }
 
       // Return data
-      return $movies;
+      return $movie;
 
     }
 
