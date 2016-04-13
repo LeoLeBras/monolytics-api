@@ -3,10 +3,10 @@
   $routes = array(
 
     // Home
-    '/' => 'LandingController\index',
+    '/' => 'IndexController\index',
 
     // Errors
-    '/notfound' => 'errorController\notfound',
+    '/notfound' => 'ErrorController\notfound',
 
     // Get movies
     '/movies' => 'MoviesController\all',
