@@ -15,10 +15,9 @@
     '/trakt' => 'TraktController\getTops',
     '/youtube/:movie' => 'YoutubeController\index',
     '/rottentomatoes/:movie' => 'RottenTomatoesController\get',
-    '/streaming/:movie' => 'TraktController\getMovie',
-    '/omdbapi/:movie' => 'OMDbAPIController\get',
+    '/streaming/:movie' => 'TraktController\index',
+    '/omdb/:movie' => 'OMDbAPIController\get',
     '/piratebay/:movie' => 'PirateBayController\get',
     '/twitter/:query' => 'TwitterController\index'
-
 
   );
