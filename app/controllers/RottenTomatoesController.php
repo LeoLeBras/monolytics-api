@@ -17,17 +17,27 @@
      */
     public function get($query) {
 
-      // Initialyze $movie
-      $movie = array();
       $title = ucwords(strtolower($query));
       $query = join('+', explode(' ', $query));
 
-      // Get link
+      // Get link from search resultats
       $dom = HtmlDomParser::file_get_html('http://www.rottentomatoes.com/search/?search='.$query);
-      $link = $dom
-        ->find('#movie_results_ul > .articleLink', 0)
-        ->attr['href'];
-      $movie['rotten_tomatoes_link'] = $this->url.$link;
+      $link = $dom->find('#movie_results_ul > .articleLink', 0);
+
+      // Set if results exist
+      if(!isset($link)) {
+        $link = '/'.'m/'.join('_', explode('+', $query)).'/';
+      }
+      else {
+        $link = $link->attr['href'];
+      }
+
+      // Initialyze $movie
+      $movie = array(
+        'rotten_tomatoes_meter' => 0,
+        'rotten_tomatoes_score' => 0,
+        'rotten_tomatoes_link' => $this->url.$link
+      );
 
       // Get stats
       $dom = HtmlDomParser::file_get_html($movie['rotten_tomatoes_link']);
