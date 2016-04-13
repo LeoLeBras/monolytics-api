@@ -21,6 +21,12 @@
      */
     public function get($query) {
 
+      // Get video list results
+      $response = Fetch::get(
+        $this->url.'search?part=snippe&part=snippet&order=relevance&q='.$query.'+trailer&maxResults=3&type=video&key='.$this->key,
+        $this->headers
+      );
+
       // Initialize movie data
       $title = ucwords(strtolower($query));
       $movie = array(
@@ -28,12 +34,6 @@
         'likeCount' => 0,
         'dislikeCount' => 0,
         'commentCount' => 0
-      );
-
-      // Get video list results
-      $response = Fetch::get(
-        $this->url.'search?part=snippe&part=snippet&order=relevance&q='.$query.'+trailer&maxResults=3&type=video&key='.$this->key,
-        $this->headers
       );
 
       // Fetch data
@@ -54,12 +54,15 @@
         'viewCount' => 'youtube_view_count',
         'likeCount' => 'youtube_like_count',
         'dislikeCount' => 'youtube_dislike_count',
-        'commentCount' => 'youtube_comment_count'
+        'commentCount' => 'youtube_comment_count',
       );
       foreach ($structure as $key => $value) {
         $movie[$structure[$key]] = $movie[$key];
         unset($movie[$key]);
       }
+
+      // Add youtube video id
+      $movie['youtube_id'] = $response->items[0]->id->videoId;
 
       // Save $movie in databse
       $query = new Movie();

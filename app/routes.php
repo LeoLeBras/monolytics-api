@@ -18,8 +18,9 @@
     '/rottentomatoes/:movie' => 'RottenTomatoesController\get',
 
     // List of movies
-    '/trakt/:type' => 'TraktController\get',
-    '/list' => 'TraktController\list',
+    '/trakt/:type' => 'TraktController\list',
+    '/streaming/:movie' => 'TraktController\get',
+    '/list' => 'TraktController\all',
 
     // MovieDB
     '/omdbapi/:movie' => 'OMDbAPIController\get',
