@@ -1,6 +1,7 @@
 <?php
 
   require_once(APP_DIR.'/models/Movie.php');
+  require_once(APP_DIR.'/models/MovieTop.php');
 
   class MoviesController {
 
@@ -41,10 +42,20 @@
      */
     public function getTops() {
 
-      // Build response
-      $movies = array(
-        'app' => 'monolytics'
-      );
+      // Set key
+      $key = 'topMovies';
+
+      // Get movies
+      if(Storage::check($key)) { // from storage
+        $movies = Storage::get($key);
+      }
+      else { // from databse
+        $query = new MovieTop();
+        $movies = $query
+          ->join('movies', 'movies_tops.movie_id = movies.id')
+          ->fetchAll();
+        Storage::set($key, $movies);
+      }
 
       // Return json
       echo json_encode($movies);

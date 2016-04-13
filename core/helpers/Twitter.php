@@ -1,7 +1,5 @@
 <?php
 
-  require_once(VENDOR_DIR.'/autoload.php');
-
   class Twitter {
 
     public static $url = 'https://api.twitter.com/1.1/';

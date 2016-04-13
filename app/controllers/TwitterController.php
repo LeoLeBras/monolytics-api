@@ -2,7 +2,6 @@
 
   require_once(APP_DIR.'/models/Movie.php');
   require_once(CORE_DIR.'/helpers/Fetch.php');
-  require_once(CORE_DIR.'/helpers/Twitter.php');
 
   class TwitterController {
 

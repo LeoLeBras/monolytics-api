@@ -1,11 +1,14 @@
 <?php
 
+  namespace Helpers;
+
   class Model {
 
     private $query;
     private $where;
     private $limit;
     private $orderBy;
+    private $join;
     private $set;
 
 
@@ -49,6 +52,20 @@
      */
     public function orderBy($column, $type) {
       $this->orderBy = $column.' '.$type;
+      return $this;
+    }
+
+
+
+    /**
+     * Join a table
+     *
+     * @param {string} $table
+     * @param {string} $join
+     * @return {ctx}
+     */
+    public function join($table, $join) {
+      $this->join = $table.' ON '.$join;
       return $this;
     }
 
@@ -110,6 +127,11 @@
       // LIMIT defined
       if(!empty($this->limit)) {
         $query = $query.' LIMIT '.$this->limit;
+      }
+
+      // JOIN defined
+      if(!empty($this->join)) {
+        $query = $query.' INNER JOIN '.$this->join;
       }
 
       return $pdo->query($query);
@@ -184,6 +206,7 @@
       // Create query
       global $pdo;
       $query = "INSERT INTO ".$this->table." (".$keys.") VALUES (".$values.")";
+
       return $pdo->exec($query);
 
     }
@@ -234,5 +257,28 @@
 
       return $pdo->exec($query);
     }
+
+
+    /**
+     * Get last inserted id
+     *
+     * @return {int}
+     */
+    public function lastInsertId() {
+      global $pdo;
+      return $pdo->lastInsertId();
+    }
+
+
+    /**
+     * Truncate the table
+     *
+     * @return {bolean}
+     */
+    public function truncate() {
+      global $pdo;
+      return $pdo->exec('TRUNCATE TABLE '.$this->table);
+    }
+
 
   }

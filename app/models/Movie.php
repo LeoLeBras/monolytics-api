@@ -1,6 +1,6 @@
 <?php
 
-  require_once(CORE_DIR.'/helpers/Model.php');
+  use \Helpers\Model;
 
   class Movie extends Model {
     public $table = 'movies';

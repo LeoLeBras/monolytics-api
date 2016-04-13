@@ -2,6 +2,7 @@
 
   require_once(CORE_DIR.'/helpers/Fetch.php');
   require_once(APP_DIR.'/models/Movie.php');
+  require_once(APP_DIR.'/models/MovieTop.php');
 
   class TraktController {
 
@@ -46,7 +47,9 @@
 
       // Get all movies
       $movies = array();
+      $i = 0;
       foreach($this->types as $type) {
+        $rank = 1;
         foreach($this->getTop($type) as $entry) {
           if(isset($entry->movie)) {
             $entry = $entry->movie;
@@ -56,8 +59,55 @@
           $movie['type'] = $type;
           $movie['year'] = $entry->year;
           $movie['imdb_id'] = $entry->ids->imdb;
-          $movies[$entry->ids->trakt] = $movie;
+          $movie['rank'] = $rank;
+          $movies[$i] = $movie;
+          $i += 1;
+          $rank += 1;
         }
+      }
+
+      // Get all saved movies
+      $query = new Movie();
+      $saved_movies = $query->fetchAll();
+
+      // Truncate movies_tops databse
+      $query = new MovieTop();
+      $query->truncate();
+
+      foreach($movies as $key => $movie) {
+
+        // Find movie in your own databse
+        $title = join(' ', explode("'", $movie['title']));
+        $query = new Movie();
+        $saved_movie = $query
+          ->where(array('title' => $title))
+          ->fetch();
+
+        // Create the movie if it has not be done before
+        if(empty($saved_movie)) {
+          $query = new Movie();
+          $query
+            ->set(array(
+              'title' => $title,
+              'imdb_id' => $movie['imdb_id']
+            ))
+            ->save();
+          $movie['movie_id'] = $query->lastInsertId();
+        }
+        else {
+          $movie['movie_id'] = $saved_movie->id;
+        }
+
+        // Add the movie the movies_tops database
+        $query = new MovieTop();
+        $query
+          ->set(array(
+            'movie_id' => $movie['movie_id'],
+            'type' => $movie['type'],
+            'rank' => $movie['rank']
+          ))
+          ->save();
+
       }
 
       // Return json
