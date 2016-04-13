@@ -40,12 +40,13 @@
       $query = new Movie();
       $movies = $query
         ->limit(5)
-        ->orderBY('imdb_last_updated', 'ASC')
+        ->orderBY('imdb_last_update', 'ASC')
         ->fetchAll();
 
       // Fetch tweets
       $response = [];
       foreach($movies as $key => $movie) {
+        echo $key;
         $response[$key] = $this->get(htmlentities(strtolower($movie->title)), false);
       }
 
@@ -81,7 +82,7 @@
         'imdb_id' => $response->imdbID,
         'director' =>  $response->Director,
         'metascore' =>  $response->Metascore,
-        'imdb_last_updated' => date("Y-m-d H:i:s")
+        'imdb_last_update' => date("Y-m-d H:i:s")
       );
 
       // Save $movie in databse
