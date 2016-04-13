@@ -17,7 +17,7 @@
     '/rottentomatoes/:movie' => 'RottenTomatoesController\get',
     '/streaming/:movie' => 'TraktController\index',
     '/omdb/:movie' => 'OMDbAPIController\index',
-    '/piratebay/:movie' => 'PirateBayController\get',
+    '/piratebay/:movie' => 'PirateBayController\index',
     '/twitter/:query' => 'TwitterController\index'
 
   );
