@@ -1,5 +1,5 @@
 # monolytics-api
-The official Monolytics API :tv:
+🚀 http://monolytics.io
 
 ## Requirements
 - PHP 5.4.x or newer
