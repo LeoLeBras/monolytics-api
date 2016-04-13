@@ -4,9 +4,54 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "db5b1365df2400d57b20d7c925859fe8",
-    "content-hash": "159cc4b63ab13bb74eb9688993afa384",
+    "hash": "1da33e30e2c89d55e1a00fa5b9e21be0",
+    "content-hash": "8ec3cd20b973479f8d7915a7492aeac4",
     "packages": [
+        {
+            "name": "cosenary/simple-php-cache",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cosenary/Simple-PHP-Cache.git",
+                "reference": "39607c9307b32248bae2fd6a945183c7249156da"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cosenary/Simple-PHP-Cache/zipball/39607c9307b32248bae2fd6a945183c7249156da",
+                "reference": "39607c9307b32248bae2fd6a945183c7249156da",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=5.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "."
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD"
+            ],
+            "authors": [
+                {
+                    "name": "Christian Metz",
+                    "email": "christian-metz1@gmx.net",
+                    "homepage": "http://metzweb.net"
+                }
+            ],
+            "description": "A light, simple but powerful PHP5 Cache Class which uses the filesystem for caching.",
+            "homepage": "https://github.com/cosenary/Simple-PHP-Cache",
+            "keywords": [
+                "Simple",
+                "cache",
+                "filesystem",
+                "json"
+            ],
+            "time": "2015-01-03 18:28:23"
+        },
         {
             "name": "j7mbo/twitter-api-php",
             "version": "dev-master",
@@ -151,7 +196,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "j7mbo/twitter-api-php": 20
+        "j7mbo/twitter-api-php": 20,
+        "cosenary/simple-php-cache": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

@@ -1,6 +1,10 @@
 <?php
 
   class IndexController {
+
+    /**
+     * Home
+     */
     public function index() {
       $response = array(
         'app' => 'monolytics',
@@ -9,4 +13,5 @@
       );
       echo json_encode($response);
     }
+
   }

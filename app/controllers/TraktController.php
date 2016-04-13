@@ -1,7 +1,6 @@
 <?php
 
   require_once(CORE_DIR.'/helpers/Fetch.php');
-  require_once(CORE_DIR.'/helpers/Route.php');
   require_once(APP_DIR.'/models/Movie.php');
 
   class TraktController {
@@ -25,7 +24,7 @@
      * @param {string} $type
      * @return {array}
      */
-    public function top($type) {
+    public function getTop($type) {
       if(in_array($type, $this->types)) {
         return Fetch::get($this->url.$type, $this->headers);
       }
@@ -38,13 +37,17 @@
 
     /**
      * Get all tops
+     *
+     * > http://docs.trakt.apiary.io/#reference/movies/trending/get-trending-movies
+     *
+     * @return {aray}
      */
-    public function tops() {
+    public function getTops() {
 
       // Get all movies
       $movies = array();
       foreach($this->types as $type) {
-        foreach($this->top($type) as $entry) {
+        foreach($this->getTop($type) as $entry) {
           if(isset($entry->movie)) {
             $entry = $entry->movie;
           }
@@ -57,8 +60,9 @@
         }
       }
 
-      // Show json
+      // Return json
       echo json_encode($movies);
+      return $movies;
 
     }
 
@@ -72,7 +76,7 @@
      * @param {string} $query
      * @param {array}
      */
-    public function get($query) {
+    public function getMovie($query) {
 
       // Get imdb id
       $title = ucwords(strtolower($query));

@@ -4,6 +4,6 @@
   require_once('core/config/database.php'); // PDO connect
   require_once('core/config/tokens.php');   // Get tokens
   require_once('core/config/paths.php');    // Paths
-  require_once('core/helpers/Kernel.php');
+  require_once('core/autoload.php');
 
   Kernel::run();

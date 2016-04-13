@@ -1,3 +1,4 @@
+cache/
 vendor/
 .DS_Store
 core/config/database.php

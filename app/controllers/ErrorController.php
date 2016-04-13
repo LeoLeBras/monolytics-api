@@ -1,6 +1,10 @@
 <?php
 
   class ErrorController {
+
+    /**
+     * Page not found
+     */
     public function notfound() {
       $response = array(
         'app' => 'monolytics',
@@ -9,4 +13,5 @@
       );
       echo json_encode($response);
     }
+
   }
