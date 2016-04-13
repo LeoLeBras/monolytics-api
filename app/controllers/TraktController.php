@@ -146,7 +146,7 @@
       // Get movies from databse
       $query = new Movie();
       $movies = $query
-        ->limit(5)
+        ->limit(20)
         ->orderBY('trakt_last_update', 'ASC')
         ->fetchAll();
 
