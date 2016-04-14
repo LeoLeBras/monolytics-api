@@ -68,16 +68,17 @@
 
       // Get movie id
       $title = ucwords(strtolower($query));
-      $movie_id = Fetch::get(
+      $search = Fetch::get(
         $this->url.'search/movie?api_key='.$this->key.'&query='.$query,
         $this->headers
-      )->results[0]->id;
+      );
 
       // Get metada
       $response = Fetch::get(
-        $this->url.'movie/'.$movie_id.'?api_key='.$this->key,
+        $this->url.'movie/'.$search->results[0]->id.'?api_key='.$this->key,
         $this->headers
       );
+
 
       // Build response
       $movie = array(
