@@ -9,12 +9,12 @@
     // Monolytics API
     '/movies' => 'MoviesController\getAll', // Get all movies
     '/tops' => 'MoviesController\getTops',  // Get all tops movies
-    '/tweets' => 'TwitterController\tops',  // Get tweets who referenced #trurank
 
     // Calc TRURANK
     '/trurank/:movie' => 'TruRankController\index',
 
     // APIs
+    '/creator' => 'MovieDBController\creator',
     '/trakt' => 'TraktController\getTops',
     '/youtube/:movie' => 'YoutubeController\index',
     '/rottentomatoes/:movie' => 'RottenTomatoesController\index',

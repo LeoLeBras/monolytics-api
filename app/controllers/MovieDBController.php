@@ -106,4 +106,59 @@
 
     }
 
+
+
+
+    /**
+     * Add new movies to the databse
+     */
+    public function creator() {
+
+      // Random page
+      $page = rand(0, 100);
+
+      // Add randomly 20 new movies
+      $tops = Fetch::get(
+        $this->url.'movie/top_rated?api_key='.$this->key.'&page='.$page,
+        $this->headers
+      )->results;
+
+      // Save $movies
+      $response = array();
+      foreach ($tops as $key => $movie) {
+
+        // Get movies metadatas
+        $movie = Fetch::get(
+          $this->url.'movie/'.$movie->id.'?api_key='.$this->key,
+          $this->headers
+        );
+
+        // Check if it has not been created before
+        $query = new Movie();
+        $check_movie = $query
+          ->where(array(
+            'imdb_id' => $movie->imdb_id
+          ))
+          ->fetch();
+
+        if(!$check_movie) {
+          $movie = array(
+            'title' => $movie->title,
+            'imdb_id' => $movie->imdb_id,
+            'year' => (int)substr($movie->release_date, 0, 4)
+          );
+          $query = new Movie();
+          $query
+            ->set($movie)
+            ->save();
+          $response[$key] = $movie;
+        }
+
+
+      }
+
+      echo json_encode($response);
+
+    }
+
   }
