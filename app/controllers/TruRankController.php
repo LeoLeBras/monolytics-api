@@ -111,12 +111,12 @@
 
       $movie = array(
         'trurank_last_update' => date("Y-m-d H:i:s"),
-        'trurank_score' => $trurank,
-        'trurank_reality' => $reality,
-        'trurank_trailer' => $trailer,
-        'trurank_hypermeter' => $hypermeter,
-        'trurank_review' => $review,
-        'trurank_noise' => $noise
+        'trurank_score' => (float) $trurank,
+        'trurank_reality' => (float) $reality,
+        'trurank_trailer' => (float) $trailer,
+        'trurank_hypermeter' => (float) $hypermeter,
+        'trurank_review' => (float) $review,
+        'trurank_noise' => (float) $noise
       );
 
       // Save $movie in databse
