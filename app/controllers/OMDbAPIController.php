@@ -68,27 +68,33 @@
     public function get($query, $return_json = true) {
 
       // Get movie
+      $title = ucwords(strtolower($query));
       $response = Fetch::get(
         $this->url.'?t='.join('+', explode(' ', $query)),
         $this->headers
       );
 
       // Get data
-      $movie = array(
-        'title' => $response->Title,
-        'imdb_rating' => (float)$response->imdbRating,
-        'imdb_votes' => (float)$response->imdbVotes,
-        'imdb_id' => $response->imdbID,
-        'director' =>  $response->Director,
-        'metascore' => (int)$response->Metascore,
-        'imdb_last_update' => date("Y-m-d H:i:s")
-      );
+      if($response->Response !== 'False') {
+        $movie = array(
+          'imdb_rating' => (float)$response->imdbRating,
+          'imdb_votes' => (float)$response->imdbVotes,
+          'imdb_id' => $response->imdbID,
+          'director' =>  $response->Director,
+          'metascore' => (int)$response->Metascore,
+          'imdb_last_update' => date("Y-m-d H:i:s")
+        );
+      } else {
+        $movie = array(
+          'imdb_last_update' => date("Y-m-d H:i:s")
+        );
+      }
 
       // Save $movie in databse
       $query = new Movie();
       $query
         ->where(array(
-          'title' => $response->Title
+          'title' => $title
         ))
         ->set($movie)
         ->save();
