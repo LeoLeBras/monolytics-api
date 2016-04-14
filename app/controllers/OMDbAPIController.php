@@ -46,7 +46,6 @@
       // Fetch tweets
       $response = [];
       foreach($movies as $key => $movie) {
-        echo $key;
         $response[$key] = $this->get(htmlentities(strtolower($movie->title)), false);
       }
 
