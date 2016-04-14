@@ -1,5 +1,8 @@
 <?php
 
+  header('Access-Control-Allow-Origin: *');
+  header('Content-Type: application/json');
+
   require_once('core/config/index.php');
   require_once(VENDOR_DIR.'/autoload.php');
   require_once('core/config/database.php'); // PDO connect
