@@ -32,7 +32,7 @@
       // Get movies from databse
       $query = new Movie();
       $movies = $query
-        ->limit(30)
+        ->limit(40)
         ->orderBY('trurank_last_update', 'ASC')
         ->fetchAll();
 

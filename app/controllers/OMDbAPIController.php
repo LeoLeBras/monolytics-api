@@ -39,7 +39,7 @@
       // Get movies from databse
       $query = new Movie();
       $movies = $query
-        ->limit(20)
+        ->limit(30)
         ->orderBY('imdb_last_update', 'ASC')
         ->fetchAll();
 

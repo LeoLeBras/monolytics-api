@@ -37,7 +37,7 @@
       // Get movies from databse
       $query = new Movie();
       $movies = $query
-        ->limit(7)
+        ->limit(8)
         ->orderBY('rotten_tomatoes_last_update', 'ASC')
         ->fetchAll();
 

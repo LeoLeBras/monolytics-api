@@ -37,7 +37,7 @@
       // Get movies from databse
       $query = new Movie();
       $movies = $query
-        ->limit(7)
+        ->limit(8)
         ->orderBY('pirate_bay_last_update', 'ASC')
         ->fetchAll();
 
