@@ -115,7 +115,7 @@
     public function creator() {
 
       // Random page
-      $page = rand(0, 100);
+      $page = rand(0, 10);
 
       // Add randomly 20 new movies
       $tops = Fetch::get(
