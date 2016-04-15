@@ -138,4 +138,32 @@
 
     }
 
+
+
+    /**
+     * Get best trurank movies
+     */
+    public function tops() {
+
+      // Set key
+      $key = 'topTrurank';
+
+      // Get movies
+      if(Storage::check($key)) { // from storage
+        $movies = Storage::get($key);
+      }
+      else { // from databse
+        $query = new Movie();
+        $movies = $query
+          ->orderBy('trurank_score', 'DESC')
+          ->limit(10)
+          ->fetchAll();
+        Storage::set($key, $movies);
+      }
+
+      // Return json
+      echo json_encode($movies);
+
+    }
+
   }

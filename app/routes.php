@@ -9,6 +9,7 @@
     // Monolytics API
     '/movies' => 'MoviesController\getAll', // Get all movies
     '/tops' => 'MoviesController\getTops',  // Get all tops movies
+    '/topstrurank' => 'TruRankController\tops',
 
     // Calc TRURANK
     '/trurank/:movie' => 'TruRankController\index',
